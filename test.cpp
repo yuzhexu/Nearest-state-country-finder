@@ -69,31 +69,37 @@ private:
         return root;
     }
     //search nearest 
-    void findKNearestRec(Node* root, double x, double y, int k, std::priority_queue<KdNodeDistance, std::vector<KdNodeDistance>, Compare>& pq, unsigned depth) {
-        if (root == nullptr) return;
+void findKNearestRec(Node* root, double x, double y, int k, 
+                     std::priority_queue<KdNodeDistance, std::vector<KdNodeDistance>, Compare>& pq, 
+                     unsigned depth) {
+    if (root == nullptr) return;
 
-        double dist = haversineDistance(x, y, root->x, root->y);
+    double dist = haversineDistance(x, y, root->x, root->y);
 
-        if (pq.size() < k) {pq.push(KdNodeDistance(root, dist));
-        } else if (dist < pq.top().distance) {
-            pq.pop();
-            pq.push(KdNodeDistance(root, dist));
-        }
-
-
-        // Determine which subtree to search
-        unsigned cd = depth % 2;
-        Node* nextBranch = (cd == 0) ? ((x < root->x) ? root->left : root->right) : ((y < root->y) ? root->left : root->right);
-        Node* otherBranch = (cd == 0) ? ((x < root->x) ? root->right : root->left) : ((y < root->y) ? root->right : root->left);
-
-        findKNearestRec(nextBranch, x, y, k, pq, depth + 1);
-
-        // Check if we need to explore the other branch
-        double distToPlane = (cd == 0) ? std::abs(root->x - x) : std::abs(root->y - y);
-        if (pq.size() < k || distToPlane < pq.top().distance) {
-            findKNearestRec(otherBranch, x, y, k, pq, depth + 1);
-        }
+    if (pq.size() < k) {
+        pq.push(KdNodeDistance(root, dist));
+    } else if (dist < pq.top().distance) {
+        pq.pop();
+        pq.push(KdNodeDistance(root, dist));
     }
+
+    unsigned cd = depth % 2;
+    Node* nextBranch = (cd == 0) ? ((x < root->x) ? root->left : root->right) : ((y < root->y) ? root->left : root->right);
+    Node* otherBranch = (cd == 0) ? ((x < root->x) ? root->right : root->left) : ((y < root->y) ? root->right : root->left);
+
+    // First, visit the subtree that is closer to the point
+    findKNearestRec(nextBranch, x, y, k, pq, depth + 1);
+
+    // Then, check if we need to visit the other subtree
+    double distToPlane = (cd == 0) ? std::abs(root->x - x) : std::abs(root->y - y);
+    if (pq.size() < k || distToPlane < pq.top().distance) {
+        findKNearestRec(otherBranch, x, y, k, pq, depth + 1);
+    }
+}
+
+
+
+
 
     //Define the function that calculates the distance
     static double rad(double d)
@@ -174,7 +180,7 @@ int main() {
     std::string line, cell;
 
     // Open your CSV file
-    std::ifstream file("/Users/ricardoxu/Desktop/EC504/Data/2023_Gaz_counties_national.csv");
+    std::ifstream file("/Data/2023_Gaz_counties_national.csv");
 
     // Read the first line to discard it if it contains headers
     std::getline(file, line);
@@ -228,6 +234,7 @@ int main() {
     } else {
         std::cout << "K is less than 5, skipping majorityVote test." << std::endl;
     }
+
 
     file.close();
 
