@@ -5,6 +5,7 @@
 #include <vector>
 #include <queue> 
 #include <cmath>
+#include <unordered_map>
 #define pi 3.1415926535897932384626433832795
 const double EARTH_RADIUS = 6371.0; //Radius of the Earth in kilometers
 
@@ -174,7 +175,7 @@ int main() {
     std::string line, cell;
 
     // Open your CSV file
-    std::ifstream file("/Users/ricardoxu/Desktop/EC504/Data/2023_Gaz_counties_national.csv");
+    std::ifstream file("/Data/2023_Gaz_counties_national.csv");
 
     // Read the first line to discard it if it contains headers
     std::getline(file, line);
