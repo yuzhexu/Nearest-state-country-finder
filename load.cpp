@@ -3,6 +3,10 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <queue> 
+#include <cmath>
+#define pi 3.1415926535897932384626433832795
+const double EARTH_RADIUS = 6371.0; //Radius of the Earth in kilometers
 
 struct Node {
     double x; // Latitude
@@ -15,6 +19,18 @@ struct Node {
         : state(state), county(county), x(x), y(y), left(nullptr), right(nullptr) {}
 };
 
+struct KdNodeDistance {
+    Node* node;
+    double distance;
+    KdNodeDistance(Node* node, double distance) : node(node), distance(distance) {}
+};
+
+struct Compare {
+    bool operator()(const KdNodeDistance& a, const KdNodeDistance& b) {
+        return a.distance > b.distance; // Min heap
+    }
+};
+
 class KDTree {
 private:
     Node* root;
@@ -24,8 +40,8 @@ private:
         printInOrder(root->left);
         std::cout << "Node: " << root->state << ", " << root->county << ", " << root->x << ", " << root->y << std::endl;
         printInOrder(root->right);
+        }
     }
-}
 
     Node* insertRec(Node* root, std::string state, std::string county, double x, double y, unsigned depth) {
         if (root == nullptr) {
@@ -52,6 +68,48 @@ private:
 
         return root;
     }
+    //search nearest 
+    void findKNearestRec(Node* root, double x, double y, int k, std::priority_queue<KdNodeDistance, std::vector<KdNodeDistance>, Compare>& pq, unsigned depth) {
+        if (root == nullptr) return;
+
+        double dist = haversineDistance(x, y, root->x, root->y);
+
+        if (pq.size() < k) pq.push(KdNodeDistance(root, dist));
+        else if (dist < pq.top().distance) {
+            pq.pop();
+            pq.push(KdNodeDistance(root, dist));
+        }
+
+        // Determine which subtree to search
+        unsigned cd = depth % 2;
+        Node* nextBranch = (cd == 0) ? ((x < root->x) ? root->left : root->right) : ((y < root->y) ? root->left : root->right);
+        Node* otherBranch = (cd == 0) ? ((x < root->x) ? root->right : root->left) : ((y < root->y) ? root->right : root->left);
+
+        findKNearestRec(nextBranch, x, y, k, pq, depth + 1);
+
+        // Check if we need to explore the other branch
+        double distToPlane = (cd == 0) ? std::abs(root->x - x) : std::abs(root->y - y);
+        if (pq.size() < k || distToPlane < pq.top().distance) {
+            findKNearestRec(otherBranch, x, y, k, pq, depth + 1);
+        }
+    }
+
+    //Define the function that calculates the distance
+    static double rad(double d)
+    {   
+        return d * pi /180.0;
+    }
+
+    static double haversineDistance(double lat1, double lon1, double lat2, double lon2) {
+        double dLat = rad(lat2 - lat1);
+        double dLon = rad(lon2 - lon1);
+        lat1 = rad(lat1);
+        lat2 = rad(lat2);
+
+        double a = pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
+        double c = 2 * asin(sqrt(a));
+        return EARTH_RADIUS * c;
+    }
 
 public:
     KDTree() : root(nullptr), count(0) {}
@@ -66,6 +124,48 @@ public:
     int getCount() const {
         return count;
     }
+    std::vector<Node*> findKNearest(double x, double y, int k) {
+        std::priority_queue<KdNodeDistance, std::vector<KdNodeDistance>, Compare> pq;
+        findKNearestRec(root, x, y, k, pq, 0);
+
+        std::vector<Node*> result;
+        while (!pq.empty()) {
+            auto& kdNodeDist = pq.top();
+            Node* node = kdNodeDist.node;
+            double dist = kdNodeDist.distance;
+
+            // 
+            std::cout << "Distance to Node at (" << node->x << ", " << node->y << "): " << dist << " km" << std::endl;
+
+            result.push_back(node);
+            pq.pop();
+        }
+        return result;
+    }
+    std::pair<std::string, std::string> majorityVote(const std::vector<Node*>& neighbors) {
+    std::unordered_map<std::string, int> stateCount, countyCount;
+    for (const auto & neighbor : neighbors) {
+        stateCount[neighbor->state]++;
+        countyCount[neighbor->county]++;
+    }
+
+    std::string majorityState, majorityCounty;
+    int maxStateCount = 0, maxCountyCount = 0;
+    for (const auto & kv : stateCount) {
+        if (kv.second > maxStateCount) {
+            maxStateCount = kv.second;
+            majorityState = kv.first;
+        }
+    }
+    for (const auto& kv : countyCount) {
+        if (kv.second > maxCountyCount) {
+            maxCountyCount = kv.second;
+            majorityCounty = kv.first;
+        }
+    }
+    return std::make_pair(majorityState, majorityCounty);
+}
+
 };
 
 int main() {
@@ -77,6 +177,19 @@ int main() {
 
     // Read the first line to discard it if it contains headers
     std::getline(file, line);
+
+    // get user input
+    double testLatitude, testLongitude;
+    std::cout << "Enter latitude: ";
+    std::cin >> testLatitude;
+    std::cout << "Enter longitude: ";
+    std::cin >> testLongitude;
+
+    // get K
+    int k;
+    std::cout << "Enter K (5-10 of nearest neighbors to find): ";
+    std::cin >> k;
+
 
     // Read lines from the CSV file
     while (std::getline(file, line)) {
@@ -99,12 +212,28 @@ int main() {
         tree.insert(state, county, latitude, longitude);
     }
 
+    // Test the findKNearest method with a value entered by the user
+    std::cout << "Finding " << k << " nearest neighbors..." << std::endl;
+    auto nearestNeighbors = tree.findKNearest(testLatitude, testLongitude, k);
+    for (const auto& neighbor : nearestNeighbors) {
+        std::cout << "Neighbor: " << neighbor->state << ", " << neighbor->county << ", " << neighbor->x << ", " << neighbor->y << std::endl;
+    }
+
+    // test majorityVote 
+    if (k >= 5) {
+        std::cout << "Testing majorityVote" << std::endl;
+        auto [majorityState, majorityCounty] = tree.majorityVote(nearestNeighbors);
+        std::cout << "Majority State: " << majorityState << ", Majority County: " << majorityCounty << std::endl;
+    } else {
+        std::cout << "K is less than 5, skipping majorityVote test." << std::endl;
+    }
+
     file.close();
 
     //print all node
-    tree.printInOrder();
+    //tree.printInOrder();
     // Print the total count of nodes in the KDTree
-    std::cout << "Total nodes in KDTree: " << tree.getCount() << std::endl;
+   // std::cout << "Total nodes in KDTree: " << tree.getCount() << std::endl;
 
     return 0;
 
