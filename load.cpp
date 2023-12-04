@@ -26,9 +26,9 @@ struct KdNodeDistance {
     KdNodeDistance(Node* node, double distance) : node(node), distance(distance) {}
 };
 
-struct Compare {
-    bool operator()(const KdNodeDistance& a, const KdNodeDistance& b) {
-        return a.distance > b.distance; // Min heap
+struct CompareDist {
+    bool operator()(const std::pair<Node*, double>& a, const std::pair<Node*, double>& b) const {
+        return a.second < b.second; // Comparison logic for distances
     }
 };
 
@@ -69,50 +69,11 @@ private:
 
         return root;
     }
-    //search nearest 
-    void findKNearestRec(Node* root, double x, double y, int k, std::priority_queue<KdNodeDistance, std::vector<KdNodeDistance>, Compare>& pq, unsigned depth) {
-        if (root == nullptr) return;
-
-        double dist = haversineDistance(x, y, root->x, root->y);
-
-        if (pq.size() < k) {pq.push(KdNodeDistance(root, dist));
-        } else if (dist < pq.top().distance) {
-            pq.pop();
-            pq.push(KdNodeDistance(root, dist));
-        }
-
-
-        // Determine which subtree to search
-        unsigned cd = depth % 2;
-        Node* nextBranch = (cd == 0) ? ((x < root->x) ? root->left : root->right) : ((y < root->y) ? root->left : root->right);
-        Node* otherBranch = (cd == 0) ? ((x < root->x) ? root->right : root->left) : ((y < root->y) ? root->right : root->left);
-
-        findKNearestRec(nextBranch, x, y, k, pq, depth + 1);
-
-        // Check if we need to explore the other branch
-        double distToPlane = (cd == 0) ? std::abs(root->x - x) : std::abs(root->y - y);
-        if (pq.size() < k || distToPlane < pq.top().distance) {
-            findKNearestRec(otherBranch, x, y, k, pq, depth + 1);
-        }
-    }
-
-    //Define the function that calculates the distance
-    static double rad(double d)
-    {   
-        return d * pi /180.0;
-    }
-
-    static double haversineDistance(double lat1, double lon1, double lat2, double lon2) {
-        double dLat = rad(lat2 - lat1);
-        double dLon = rad(lon2 - lon1);
-        lat1 = rad(lat1);
-        lat2 = rad(lat2);
-
-        double a = pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
-        double c = 2 * asin(sqrt(a));
-        return EARTH_RADIUS * c;
-    }
-
+    double distance(double x1, double y1, double x2, double y2) {
+    return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+}
+    
+    
 public:
     KDTree() : root(nullptr), count(0) {}
 
@@ -126,40 +87,71 @@ public:
     int getCount() const {
         return count;
     }
-    std::vector<Node*> findKNearest(double x, double y, int k) {
-        std::priority_queue<KdNodeDistance, std::vector<KdNodeDistance>, Compare> pq;
-        findKNearestRec(root, x, y, k, pq, 0);
 
-        std::vector<Node*> result;
-        while (!pq.empty()) {
-            auto& kdNodeDist = pq.top();
-            Node* node = kdNodeDist.node;
-            double dist = kdNodeDist.distance;
-
-            // 
-            std::cout << "Distance to Node at (" << node->x << ", " << node->y << "): " << dist << " km" << std::endl;
-
-            result.push_back(node);
-            pq.pop();
-        }
-        return result;
+    Node* getRoot() const {
+        return root;
     }
+
+    //search nearest 
+    std::vector<Node*> kNearestNeighbors(Node* root, double queryX, double queryY, int k) {
+        std::priority_queue<std::pair<Node*, double>, std::vector<std::pair<Node*, double> >, CompareDist> maxHeap;
+
+        std::stack<Node*> nodeStack;
+        std::vector<Node*> kNearestNodes; // Changed to store Node* instead of coordinates
+
+        nodeStack.push(root);
+
+        while (!nodeStack.empty()) {
+            Node* current = nodeStack.top();
+            nodeStack.pop();
+
+            if (!current) continue;
+
+            double currentDistance = distance(queryX, queryY, current->x, current->y);
+
+            if (maxHeap.size() < k) {
+                maxHeap.push(std::make_pair(current, currentDistance));
+            } else {
+                if (currentDistance < maxHeap.top().second) {
+                    maxHeap.pop();
+                    maxHeap.push(std::make_pair(current, currentDistance));
+                }
+            }
+
+            int axis = 0; // Alternating between x and y coordinates
+            if (queryX < current->x) {
+                nodeStack.push(current->right);
+                nodeStack.push(current->left);
+            } else {
+                nodeStack.push(current->left);
+                nodeStack.push(current->right);
+            }
+        }
+
+        while (!maxHeap.empty()) {
+            kNearestNodes.push_back(maxHeap.top().first);
+            maxHeap.pop();
+        }
+
+        return kNearestNodes;
+    }
+
     std::pair<std::string, std::string> majorityVote(const std::vector<Node*>& neighbors) {
     std::unordered_map<std::string, int> stateCount, countyCount;
-    for (const auto & neighbor : neighbors) {
+    for (auto & neighbor : neighbors) {
         stateCount[neighbor->state]++;
         countyCount[neighbor->county]++;
     }
 
     std::string majorityState, majorityCounty;
     int maxStateCount = 0, maxCountyCount = 0;
-    for (const auto & kv : stateCount) {
+    for (auto & kv : stateCount) {
         if (kv.second > maxStateCount) {
             maxStateCount = kv.second;
             majorityState = kv.first;
         }
     }
-    for (const auto& kv : countyCount) {
+    for (auto& kv : countyCount) {
         if (kv.second > maxCountyCount) {
             maxCountyCount = kv.second;
             majorityCounty = kv.first;
@@ -181,16 +173,18 @@ int main() {
     std::getline(file, line);
 
     // get user input
-    double testLatitude, testLongitude;
-    std::cout << "Enter latitude: ";
-    std::cin >> testLatitude;
-    std::cout << "Enter longitude: ";
-    std::cin >> testLongitude;
+    double testLatitude = -90;
+    double testLongitude = 90;
+    int k = 8;
+    // std::cout << "Enter latitude: ";
+    // std::cin >> testLatitude;
+    // std::cout << "Enter longitude: ";
+    // std::cin >> testLongitude;
 
-    // get K
-    int k;
-    std::cout << "Enter K (5-10 of nearest neighbors to find): ";
-    std::cin >> k;
+    // // get K
+    // int k;
+    // std::cout << "Enter K (5-10 of nearest neighbors to find): ";
+    // std::cin >> k;
 
 
     // Read lines from the CSV file
@@ -216,7 +210,13 @@ int main() {
 
     // Test the findKNearest method with a value entered by the user
     std::cout << "Finding " << k << " nearest neighbors..." << std::endl;
-    auto nearestNeighbors = tree.findKNearest(testLatitude, testLongitude, k);
+    Node* root = tree.getRoot();
+    auto nearestNeighbors = tree.kNearestNeighbors(root, testLatitude, testLongitude, k);
+    if (root == NULL) {
+        std::cout << "Nearest neighbors not found! root null" << std::endl;
+        //std::cout << "root is:" << " x: " << root->x << " y: " << root->y << std::endl;
+
+    }
     for (const auto& neighbor : nearestNeighbors) {
         std::cout << "Neighbor: " << neighbor->state << ", " << neighbor->county << ", " << neighbor->x << ", " << neighbor->y << std::endl;
     }
@@ -224,7 +224,9 @@ int main() {
     // test majorityVote 
     if (k >= 5) {
         std::cout << "Testing majorityVote" << std::endl;
-        auto [majorityState, majorityCounty] = tree.majorityVote(nearestNeighbors);
+        std::pair<std::string, std::string> result = tree.majorityVote(nearestNeighbors);
+        auto majorityState = result.first;
+        auto majorityCounty = result.second;
         std::cout << "Majority State: " << majorityState << ", Majority County: " << majorityCounty << std::endl;
     } else {
         std::cout << "K is less than 5, skipping majorityVote test." << std::endl;
