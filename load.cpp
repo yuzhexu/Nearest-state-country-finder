@@ -167,14 +167,14 @@ int main() {
     std::string line, cell;
 
     // Open your CSV file
-    std::ifstream file("/Data/2023_Gaz_counties_national.csv");
+    std::ifstream file("./Data/2023_Gaz_counties_national.csv");
 
     // Read the first line to discard it if it contains headers
     std::getline(file, line);
 
     // get user input
-    double testLatitude = -90;
-    double testLongitude = 90;
+    double testLatitude = 42.3484;
+    double testLongitude = -71.1019;
     int k = 8;
     // std::cout << "Enter latitude: ";
     // std::cin >> testLatitude;
