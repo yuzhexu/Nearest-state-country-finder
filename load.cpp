@@ -28,7 +28,7 @@ struct KdNodeDistance {
 
 struct Compare {
     bool operator()(const KdNodeDistance& a, const KdNodeDistance& b) {
-        return a.distance > b.distance; // Min heap
+        return a.distance < b.distance; // Max heap
     }
 };
 
@@ -175,7 +175,7 @@ int main() {
     std::string line, cell;
 
     // Open your CSV file
-    std::ifstream file("/Data/2023_Gaz_counties_national.csv");
+    std::ifstream file("Data/2023_Gaz_counties_national.csv");
 
     // Read the first line to discard it if it contains headers
     std::getline(file, line);
