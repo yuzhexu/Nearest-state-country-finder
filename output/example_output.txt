@@ -1,0 +1,12 @@
+Finding 10 nearest neighbors...
+Neighbor: NC, Jones County, 35.032°, -77.356° Distance: 887.6894km
+Neighbor: NC, Beaufort County, 35.482°, -76.842° Distance: 883.3335km
+Neighbor: NC, Onslow County, 34.763°, -77.499° Distance: 880.6927km
+Neighbor: NC, New Hanover County, 34.183°, -77.864° Distance: 874.3344km
+Neighbor: NC, Craven County, 35.117°, -77.081° Distance: 873.7009km
+Neighbor: NC, Tyrrell County, 35.870°, -76.165° Distance: 869.7161km
+Neighbor: NC, Pamlico County, 35.148°, -76.665° Distance: 846.7518km
+Neighbor: NC, Hyde County, 35.408°, -76.154° Distance: 832.1764km
+Neighbor: NC, Dare County, 35.606°, -75.768° Distance: 823.7714km
+Neighbor: NC, Carteret County, 34.858°, -76.536° Distance: 817.0127km
+Majority State: NC

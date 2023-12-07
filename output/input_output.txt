@@ -1,0 +1,12 @@
+Finding 10 nearest neighbors...
+Neighbor: CT, Southeastern Connecticut Planning Region, 41.485°, -72.102° Distance: 242.0752km
+Neighbor: MA, Plymouth County, 41.987°, -70.742° Distance: 229.5697km
+Neighbor: RI, Kent County, 41.675°, -71.580° Distance: 228.8316km
+Neighbor: RI, Bristol County, 41.707°, -71.287° Distance: 218.4701km
+Neighbor: MA, Bristol County, 41.749°, -71.089° Distance: 214.9058km
+Neighbor: RI, Washington County, 41.397°, -71.620° Distance: 206.8274km
+Neighbor: RI, Newport County, 41.501°, -71.283° Distance: 198.8407km
+Neighbor: MA, Barnstable County, 41.706°, -70.165° Distance: 190.2179km
+Neighbor: MA, Dukes County, 41.381°, -70.701° Distance: 164.5518km
+Neighbor: MA, Nantucket County, 41.293°, -70.102° Distance: 144.0767km
+Majority State: MA
