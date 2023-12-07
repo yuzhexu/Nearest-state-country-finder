@@ -1,5 +1,18 @@
 # Nearest-state-country-finder
 EC504 class project Nearest state/country finder
+## Getting Started
+Run `make` to complie the code
+Run `make run` will test the sample input for the code
+or `./load xxxx.txt`
+## Input and output
+Input txt to tesing the code is under input folder</br>
+stracture of input file should be:
+```
+latitude
+longitude
+k
+```
+All output will show in consle and write in txt file under output folder
 ## Features
 #### Load Reference Points
 loads reference points (including latitude, longitude, state, and county information) 
