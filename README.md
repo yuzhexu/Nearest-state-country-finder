@@ -2,10 +2,10 @@
 EC504 class project Nearest state/country finder
 
 ## Getting Started
-Run `make` to complie the code
-Run `make run` will test the sample input for the code
-or `./load xxxx.txt`
-source code is under src
+Run `make` to complie the code</br>
+Run `make run` will test the sample input for the code</br>
+or `./load xxxx.txt`</br>
+source code is under src</br>
 ## Input and output
 Input txt to tesing the code is under input folder</br>
 stracture of input file should be:
