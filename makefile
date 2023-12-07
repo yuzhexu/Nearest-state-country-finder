@@ -10,8 +10,8 @@ TARGET = load
 # Build and link the program
 all: $(TARGET)
 
-$(TARGET): load.cpp
-	$(CXX) $(CXXFLAGS) -o $(TARGET) load.cpp
+$(TARGET): src/load.cpp
+	$(CXX) $(CXXFLAGS) -o $(TARGET) src/load.cpp
 
 # Clean up
 clean:
