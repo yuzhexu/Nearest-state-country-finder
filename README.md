@@ -1,5 +1,6 @@
 # Nearest-state-country-finder
 EC504 class project Nearest state/country finder
+
 ## Getting Started
 Run `make` to complie the code
 Run `make run` will test the sample input for the code
@@ -25,3 +26,6 @@ and return the nearest K reference points, where K is a number between 1 and 10.
 #### Majority Vote for States and Counties
 For a given reference point, determine the state 
 and county by calculating the majority vote for the 5 nearest points.
+=======
+g++ -std=c++17 -o load load.cpp
+this project code requirte c++ version 17

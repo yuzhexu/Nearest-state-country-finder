@@ -1,0 +1,13 @@
+Finding 10 nearest neighbors...
+Neighbor: RI, Bristol County, 41.707°, -71.287° Distance: 73.0934km
+Neighbor: NH, Rockingham County, 42.989°, -71.099° Distance: 71.0281km
+Neighbor: MA, Worcester County, 42.312°, -71.940° Distance: 68.9414km
+Neighbor: MA, Bristol County, 41.749°, -71.089° Distance: 66.8733km
+Neighbor: RI, Providence County, 41.870°, -71.579° Distance: 66.2446km
+Neighbor: MA, Plymouth County, 41.987°, -70.742° Distance: 50.1298km
+Neighbor: MA, Essex County, 42.643°, -70.865° Distance: 37.9704km
+Neighbor: MA, Middlesex County, 42.482°, -71.395° Distance: 28.0771km
+Neighbor: MA, Norfolk County, 42.172°, -71.181° Distance: 20.8224km
+Neighbor: MA, Suffolk County, 42.339°, -71.018° Distance: 7.0945km
+Majority State: MA
+Time taken by function: 43668 microseconds

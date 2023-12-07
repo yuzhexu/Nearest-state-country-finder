@@ -1,0 +1,39 @@
+Finding 10 nearest neighbors...
+Neighbor: MA, Bristol County, 41.749°, -71.089° Distance: 77.1365km
+Neighbor: MA, Plymouth County, 41.987°, -70.742° Distance: 70.4598km
+Neighbor: NH, Rockingham County, 42.989°, -71.099° Distance: 68.6763km
+Neighbor: NH, Hillsborough County, 42.912°, -71.723° Distance: 62.6164km
+Neighbor: RI, Providence County, 41.870°, -71.579° Distance: 61.9112km
+Neighbor: MA, Essex County, 42.643°, -70.865° Distance: 49.8415km
+Neighbor: MA, Worcester County, 42.312°, -71.940° Distance: 47.0527km
+Neighbor: MA, Norfolk County, 42.172°, -71.181° Distance: 30.9783km
+Neighbor: MA, Suffolk County, 42.339°, -71.018° Distance: 30.8725km
+Neighbor: MA, Middlesex County, 42.482°, -71.395° Distance: 8.3494km
+Majority State: MA
+Time taken by function: 39074 microseconds
+Finding 10 nearest neighbors...
+Neighbor: NC, Jones County, 35.032°, -77.356° Distance: 887.6894km
+Neighbor: NC, Beaufort County, 35.482°, -76.842° Distance: 883.3335km
+Neighbor: NC, Onslow County, 34.763°, -77.499° Distance: 880.6927km
+Neighbor: NC, New Hanover County, 34.183°, -77.864° Distance: 874.3344km
+Neighbor: NC, Craven County, 35.117°, -77.081° Distance: 873.7009km
+Neighbor: NC, Tyrrell County, 35.870°, -76.165° Distance: 869.7161km
+Neighbor: NC, Pamlico County, 35.148°, -76.665° Distance: 846.7518km
+Neighbor: NC, Hyde County, 35.408°, -76.154° Distance: 832.1764km
+Neighbor: NC, Dare County, 35.606°, -75.768° Distance: 823.7714km
+Neighbor: NC, Carteret County, 34.858°, -76.536° Distance: 817.0127km
+Majority State: NC
+Time taken by function: 39714 microseconds
+Finding 10 nearest neighbors...
+Neighbor: PR, Lares Municipio, 18.277°, -66.870° Distance: 21.3025km
+Neighbor: PR, Las Marías Municipio, 18.228°, -66.978° Distance: 20.2225km
+Neighbor: PR, San Germán Municipio, 18.108°, -67.037° Distance: 19.1166km
+Neighbor: PR, Guánica Municipio, 17.948°, -66.923° Distance: 16.7789km
+Neighbor: PR, Peñuelas Municipio, 18.027°, -66.728° Distance: 15.2101km
+Neighbor: PR, Adjuntas Municipio, 18.182°, -66.758° Distance: 14.9963km
+Neighbor: PR, Maricao Municipio, 18.174°, -66.936° Distance: 12.7945km
+Neighbor: PR, Guayanilla Municipio, 18.005°, -66.798° Distance: 10.9318km
+Neighbor: PR, Sabana Grande Municipio, 18.084°, -66.948° Distance: 9.4832km
+Neighbor: PR, Yauco Municipio, 18.086°, -66.858° Distance: 0.0000km
+Majority State: PR
+Time taken by function: 40027 microseconds
