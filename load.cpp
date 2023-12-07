@@ -6,6 +6,9 @@
 #include <queue> 
 #include <cmath>
 #include <unordered_map>
+#include <chrono> 
+#include <iostream>
+
 constexpr double PI = 3.14159265358979323846;
 constexpr double EARTH_RADIUS = 6371.0; // Radius of the Earth in kilometers
 
@@ -172,7 +175,8 @@ int main(int argc, char* argv[]) {
         std::cerr << "Usage: ./load <input_file>" << std::endl;
         return 1;
     }
-
+    using namespace std::chrono; 
+    auto start = high_resolution_clock::now();
     KDTree tree;
     std::string inputFilePath = argv[1];
     std::ifstream inputFile(inputFilePath); // input
@@ -204,31 +208,7 @@ int main(int argc, char* argv[]) {
 
     // Read the first line to discard it if it contains headers
     std::getline(dataFile, dataline);
-
-    // get input from txt file
-    std::string inputline;
-    double testLatitude, testLongitude;
-    int k;
-
-    if (std::getline(inputFile, inputline)) testLatitude = std::stod(inputline);
-    if (std::getline(inputFile, inputline)) testLongitude = std::stod(inputline);
-    if (std::getline(inputFile, inputline)) k = std::stoi(inputline);
-
-/*   This is get input from user type
-    // get user input
-    double testLatitude, testLongitude;
-    std::cout << "Enter latitude: ";
-    std::cin >> testLatitude;
-    std::cout << "Enter longitude: ";
-    std::cin >> testLongitude;
-
-    // get K
-    int k;
-    std::cout << "Enter K (5-10 of nearest neighbors to find): ";
-    std::cin >> k;
-*/
-
-    // Read lines from the CSV file
+            // Read lines from the CSV file
     while (std::getline(dataFile, dataline)) {
         std::stringstream lineStream(dataline);
         std::vector<std::string> cells;
@@ -247,50 +227,82 @@ int main(int argc, char* argv[]) {
 
         // Insert the point into the KD-tree
         tree.insert(state, county, latitude, longitude);
+        }
+        // get input from txt file
+        std::string inputLine;
+    while (std::getline(inputFile, inputLine)) {
+        double testLatitude = std::stod(inputLine);
+
+        if (!std::getline(inputFile, inputLine)) break;
+        double testLongitude = std::stod(inputLine);
+
+        if (!std::getline(inputFile, inputLine)) break;
+        int k = std::stoi(inputLine);
+    /*   This is get input from user type
+        // get user input
+        double testLatitude, testLongitude;
+        std::cout << "Enter latitude: ";
+        std::cin >> testLatitude;
+        std::cout << "Enter longitude: ";
+        std::cin >> testLongitude;
+
+        // get K
+        int k;
+        std::cout << "Enter K (5-10 of nearest neighbors to find): ";
+        std::cin >> k;
+    */
+
+
+
+        // Test the findKNearest method with a value entered by the user
+        std::cout << "Finding " << k << " nearest neighbors..." << std::endl; // show in consle 
+        outfile << "Finding " << k << " nearest neighbors..." << std::endl; // in output.txt
+
+        auto nearestNeighbors = tree.findKNearest(testLatitude, testLongitude, k);
+        for (const auto& neighborDist : nearestNeighbors) {
+            Node* neighbor = neighborDist.node;
+            double dist = neighborDist.distance;
+            std::cout << "Neighbor: " << neighbor->state << ", " << neighbor->county
+                    << ", " << std::fixed << std::setprecision(3) << neighbor->x << "°, "
+                    << std::fixed << std::setprecision(3) << neighbor->y << "° Distance: "
+                    << std::fixed << std::setprecision(4) << dist << "km" << std::endl;
+            // write in output.txt
+            outfile << "Neighbor: " << neighbor->state << ", " << neighbor->county
+                    << ", " << std::fixed << std::setprecision(3) << neighbor->x << "°, "
+                    << std::fixed << std::setprecision(3) << neighbor->y << "° Distance: "
+                    << std::fixed << std::setprecision(4) << dist << "km" << std::endl;
+        }
+        std::vector<Node*> nodesForMajorityVote;
+        for (const auto& neighborDist : nearestNeighbors) {
+            nodesForMajorityVote.push_back(neighborDist.node);
+        }
+        // test majorityVote 
+        if (k >= 5) {
+            auto [majorityState, majorityCounty] = tree.majorityVote(nodesForMajorityVote);
+            std::cout << "Majority State: " << majorityState << std::endl;
+            outfile << "Majority State: " << majorityState << std::endl;
+
+        } else {
+            std::cout << "K is less than 5, skipping majorityVote test." << std::endl;
+            outfile << "K is less than 5, skipping majorityVote test." << std::endl;
+
+        }
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        std::cout << "Time taken by function: "
+                << duration.count() << " microseconds" << std::endl;
+        outfile << "Time taken by function: "
+                << duration.count() << " microseconds" << std::endl;
     }
+        dataFile.close();
+        inputFile.close();
+        outfile.close();
+        //print all node
+        //tree.printInOrder();
+        // Print the total count of nodes in the KDTree
+    // std::cout << "Total nodes in KDTree: " << tree.getCount() << std::endl;
 
-    // Test the findKNearest method with a value entered by the user
-    std::cout << "Finding " << k << " nearest neighbors..." << std::endl; // show in consle 
-    outfile << "Finding " << k << " nearest neighbors..." << std::endl; // in output.txt
-
-    auto nearestNeighbors = tree.findKNearest(testLatitude, testLongitude, k);
-    for (const auto& neighborDist : nearestNeighbors) {
-        Node* neighbor = neighborDist.node;
-        double dist = neighborDist.distance;
-        std::cout << "Neighbor: " << neighbor->state << ", " << neighbor->county
-                  << ", " << std::fixed << std::setprecision(3) << neighbor->x << "°, "
-                  << std::fixed << std::setprecision(3) << neighbor->y << "° Distance: "
-                  << std::fixed << std::setprecision(4) << dist << "km" << std::endl;
-        // write in output.txt
-        outfile << "Neighbor: " << neighbor->state << ", " << neighbor->county
-                  << ", " << std::fixed << std::setprecision(3) << neighbor->x << "°, "
-                  << std::fixed << std::setprecision(3) << neighbor->y << "° Distance: "
-                  << std::fixed << std::setprecision(4) << dist << "km" << std::endl;
-    }
-    std::vector<Node*> nodesForMajorityVote;
-    for (const auto& neighborDist : nearestNeighbors) {
-        nodesForMajorityVote.push_back(neighborDist.node);
-    }
-    // test majorityVote 
-    if (k >= 5) {
-        auto [majorityState, majorityCounty] = tree.majorityVote(nodesForMajorityVote);
-        std::cout << "Majority State: " << majorityState << std::endl;
-        outfile << "Majority State: " << majorityState << std::endl;
-
-    } else {
-        std::cout << "K is less than 5, skipping majorityVote test." << std::endl;
-        outfile << "K is less than 5, skipping majorityVote test." << std::endl;
-
-    }
-    dataFile.close();
-    inputFile.close();
-    outfile.close();
-    //print all node
-    //tree.printInOrder();
-    // Print the total count of nodes in the KDTree
-   // std::cout << "Total nodes in KDTree: " << tree.getCount() << std::endl;
-
-    return 0;
+        return 0;
 
 }
 

@@ -1,12 +1,13 @@
 Finding 10 nearest neighbors...
-Neighbor: NC, Jones County, 35.032°, -77.356° Distance: 887.6894km
-Neighbor: NC, Beaufort County, 35.482°, -76.842° Distance: 883.3335km
-Neighbor: NC, Onslow County, 34.763°, -77.499° Distance: 880.6927km
-Neighbor: NC, New Hanover County, 34.183°, -77.864° Distance: 874.3344km
-Neighbor: NC, Craven County, 35.117°, -77.081° Distance: 873.7009km
-Neighbor: NC, Tyrrell County, 35.870°, -76.165° Distance: 869.7161km
-Neighbor: NC, Pamlico County, 35.148°, -76.665° Distance: 846.7518km
-Neighbor: NC, Hyde County, 35.408°, -76.154° Distance: 832.1764km
-Neighbor: NC, Dare County, 35.606°, -75.768° Distance: 823.7714km
-Neighbor: NC, Carteret County, 34.858°, -76.536° Distance: 817.0127km
-Majority State: NC
+Neighbor: RI, Bristol County, 41.707°, -71.287° Distance: 73.0934km
+Neighbor: NH, Rockingham County, 42.989°, -71.099° Distance: 71.0281km
+Neighbor: MA, Worcester County, 42.312°, -71.940° Distance: 68.9414km
+Neighbor: MA, Bristol County, 41.749°, -71.089° Distance: 66.8733km
+Neighbor: RI, Providence County, 41.870°, -71.579° Distance: 66.2446km
+Neighbor: MA, Plymouth County, 41.987°, -70.742° Distance: 50.1298km
+Neighbor: MA, Essex County, 42.643°, -70.865° Distance: 37.9704km
+Neighbor: MA, Middlesex County, 42.482°, -71.395° Distance: 28.0771km
+Neighbor: MA, Norfolk County, 42.172°, -71.181° Distance: 20.8224km
+Neighbor: MA, Suffolk County, 42.339°, -71.018° Distance: 7.0945km
+Majority State: MA
+Time taken by function: 43668 microseconds
