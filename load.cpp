@@ -75,7 +75,8 @@ private:
 
         double dist = haversineDistance(x, y, root->x, root->y);
 
-        if (pq.size() < k) {pq.push(KdNodeDistance(root, dist));
+        if (pq.size() < k) {
+            pq.push(KdNodeDistance(root, dist));
         } else if (dist < pq.top().distance) {
             pq.pop();
             pq.push(KdNodeDistance(root, dist));
@@ -126,24 +127,19 @@ public:
     int getCount() const {
         return count;
     }
-    std::vector<Node*> findKNearest(double x, double y, int k) {
+    
+    std::vector<KdNodeDistance> findKNearest(double x, double y, int k) {
         std::priority_queue<KdNodeDistance, std::vector<KdNodeDistance>, Compare> pq;
         findKNearestRec(root, x, y, k, pq, 0);
 
-        std::vector<Node*> result;
+        std::vector<KdNodeDistance> result;
         while (!pq.empty()) {
-            auto& kdNodeDist = pq.top();
-            Node* node = kdNodeDist.node;
-            double dist = kdNodeDist.distance;
-
-            // 
-            std::cout << "Distance to Node at (" << node->x << ", " << node->y << "): " << dist << " km" << std::endl;
-
-            result.push_back(node);
+            result.push_back(pq.top());
             pq.pop();
         }
         return result;
     }
+
     std::pair<std::string, std::string> majorityVote(const std::vector<Node*>& neighbors) {
     std::unordered_map<std::string, int> stateCount, countyCount;
     for (const auto & neighbor : neighbors) {
@@ -217,19 +213,25 @@ int main() {
     // Test the findKNearest method with a value entered by the user
     std::cout << "Finding " << k << " nearest neighbors..." << std::endl;
     auto nearestNeighbors = tree.findKNearest(testLatitude, testLongitude, k);
-    for (const auto& neighbor : nearestNeighbors) {
-        std::cout << "Neighbor: " << neighbor->state << ", " << neighbor->county << ", " << neighbor->x << ", " << neighbor->y << std::endl;
+    for (const auto& neighborDist : nearestNeighbors) {
+        Node* neighbor = neighborDist.node;
+        double dist = neighborDist.distance;
+        std::cout << "Neighbor: " << neighbor->state << ", " << neighbor->county
+                  << ", " << std::fixed << std::setprecision(3) << neighbor->x << "°, "
+                  << std::fixed << std::setprecision(3) << neighbor->y << "° Distance: "
+                  << std::fixed << std::setprecision(4) << dist << "km" << std::endl;
     }
-
+    std::vector<Node*> nodesForMajorityVote;
+    for (const auto& neighborDist : nearestNeighbors) {
+        nodesForMajorityVote.push_back(neighborDist.node);
+    }
     // test majorityVote 
     if (k >= 5) {
-        std::cout << "Testing majorityVote" << std::endl;
-        auto [majorityState, majorityCounty] = tree.majorityVote(nearestNeighbors);
-        std::cout << "Majority State: " << majorityState << ", Majority County: " << majorityCounty << std::endl;
+        auto [majorityState, majorityCounty] = tree.majorityVote(nodesForMajorityVote);
+        std::cout << "Majority State: " << majorityState << std::endl;
     } else {
         std::cout << "K is less than 5, skipping majorityVote test." << std::endl;
     }
-
     file.close();
 
     //print all node
