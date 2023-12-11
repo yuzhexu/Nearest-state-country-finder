@@ -10,7 +10,7 @@ Neighbor: MA, Norfolk County, 42.172°, -71.181° Distance: 30.9783km
 Neighbor: MA, Suffolk County, 42.339°, -71.018° Distance: 30.8725km
 Neighbor: MA, Middlesex County, 42.482°, -71.395° Distance: 8.3494km
 Majority State: MA
-Time taken by function: 39074 microseconds
+Time taken by function: 47117 microseconds
 Finding 10 nearest neighbors...
 Neighbor: NC, Jones County, 35.032°, -77.356° Distance: 887.6894km
 Neighbor: NC, Beaufort County, 35.482°, -76.842° Distance: 883.3335km
@@ -23,7 +23,7 @@ Neighbor: NC, Hyde County, 35.408°, -76.154° Distance: 832.1764km
 Neighbor: NC, Dare County, 35.606°, -75.768° Distance: 823.7714km
 Neighbor: NC, Carteret County, 34.858°, -76.536° Distance: 817.0127km
 Majority State: NC
-Time taken by function: 39714 microseconds
+Time taken by function: 47653 microseconds
 Finding 10 nearest neighbors...
 Neighbor: PR, Lares Municipio, 18.277°, -66.870° Distance: 21.3025km
 Neighbor: PR, Las Marías Municipio, 18.228°, -66.978° Distance: 20.2225km
@@ -36,4 +36,4 @@ Neighbor: PR, Guayanilla Municipio, 18.005°, -66.798° Distance: 10.9318km
 Neighbor: PR, Sabana Grande Municipio, 18.084°, -66.948° Distance: 9.4832km
 Neighbor: PR, Yauco Municipio, 18.086°, -66.858° Distance: 0.0000km
 Majority State: PR
-Time taken by function: 40027 microseconds
+Time taken by function: 47930 microseconds
