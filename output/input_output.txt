@@ -1,39 +1,36 @@
 Finding 10 nearest neighbors...
-Neighbor: MA, Bristol County, 41.749°, -71.089° Distance: 77.1365km
-Neighbor: MA, Plymouth County, 41.987°, -70.742° Distance: 70.4598km
-Neighbor: NH, Rockingham County, 42.989°, -71.099° Distance: 68.6763km
-Neighbor: NH, Hillsborough County, 42.912°, -71.723° Distance: 62.6164km
-Neighbor: RI, Providence County, 41.870°, -71.579° Distance: 61.9112km
-Neighbor: MA, Essex County, 42.643°, -70.865° Distance: 49.8415km
-Neighbor: MA, Worcester County, 42.312°, -71.940° Distance: 47.0527km
-Neighbor: MA, Norfolk County, 42.172°, -71.181° Distance: 30.9783km
-Neighbor: MA, Suffolk County, 42.339°, -71.018° Distance: 30.8725km
-Neighbor: MA, Middlesex County, 42.482°, -71.395° Distance: 8.3494km
-Majority State: MA
-Time taken by function: 47117 microseconds
-Finding 10 nearest neighbors...
-Neighbor: NC, Jones County, 35.032°, -77.356° Distance: 887.6894km
-Neighbor: NC, Beaufort County, 35.482°, -76.842° Distance: 883.3335km
-Neighbor: NC, Onslow County, 34.763°, -77.499° Distance: 880.6927km
-Neighbor: NC, New Hanover County, 34.183°, -77.864° Distance: 874.3344km
-Neighbor: NC, Craven County, 35.117°, -77.081° Distance: 873.7009km
-Neighbor: NC, Tyrrell County, 35.870°, -76.165° Distance: 869.7161km
-Neighbor: NC, Pamlico County, 35.148°, -76.665° Distance: 846.7518km
-Neighbor: NC, Hyde County, 35.408°, -76.154° Distance: 832.1764km
-Neighbor: NC, Dare County, 35.606°, -75.768° Distance: 823.7714km
-Neighbor: NC, Carteret County, 34.858°, -76.536° Distance: 817.0127km
-Majority State: NC
-Time taken by function: 47653 microseconds
-Finding 10 nearest neighbors...
-Neighbor: PR, Lares Municipio, 18.277°, -66.870° Distance: 21.3025km
-Neighbor: PR, Las Marías Municipio, 18.228°, -66.978° Distance: 20.2225km
-Neighbor: PR, San Germán Municipio, 18.108°, -67.037° Distance: 19.1166km
-Neighbor: PR, Guánica Municipio, 17.948°, -66.923° Distance: 16.7789km
-Neighbor: PR, Peñuelas Municipio, 18.027°, -66.728° Distance: 15.2101km
-Neighbor: PR, Adjuntas Municipio, 18.182°, -66.758° Distance: 14.9963km
-Neighbor: PR, Maricao Municipio, 18.174°, -66.936° Distance: 12.7945km
-Neighbor: PR, Guayanilla Municipio, 18.005°, -66.798° Distance: 10.9318km
-Neighbor: PR, Sabana Grande Municipio, 18.084°, -66.948° Distance: 9.4832km
-Neighbor: PR, Yauco Municipio, 18.086°, -66.858° Distance: 0.0000km
-Majority State: PR
-Time taken by function: 47930 microseconds
+Neighbor: NY, Nassau County, 40.730°, -73.589° Distance: 38.6209km
+Neighbor: NJ, Bergen County, 40.960°, -74.075° Distance: 30.1853km
+Neighbor: NY, Bronx County, 40.849°, -73.853° Distance: 23.9757km
+Neighbor: NJ, Union County, 40.660°, -74.309° Distance: 22.5178km
+Neighbor: NJ, Essex County, 40.787°, -74.246° Distance: 20.2059km
+Neighbor: NY, Queens County, 40.655°, -73.841° Distance: 17.5698km
+Neighbor: NY, Richmond County, 40.561°, -74.140° Distance: 16.3463km
+Neighbor: NY, New York County, 40.777°, -73.970° Distance: 11.5648km
+Neighbor: NY, Kings County, 40.635°, -73.951° Distance: 9.9469km
+Neighbor: NJ, Hudson County, 40.731°, -74.079° Distance: 5.5004km
+Majority State: NY
+Time taken by function: 49543 microseconds
+Finding 9 nearest neighbors...
+Neighbor: CA, Tulare County, 36.229°, -118.781° Distance: 246.9120km
+Neighbor: CA, Riverside County, 33.730°, -116.002° Distance: 209.9710km
+Neighbor: CA, San Bernardino County, 34.857°, -116.182° Distance: 209.1601km
+Neighbor: CA, San Diego County, 33.024°, -116.776° Distance: 177.7122km
+Neighbor: CA, Santa Barbara County, 34.537°, -120.038° Distance: 173.4402km
+Neighbor: CA, Kern County, 35.347°, -118.730° Distance: 150.6293km
+Neighbor: CA, Ventura County, 34.359°, -119.133° Distance: 88.6123km
+Neighbor: CA, Orange County, 33.676°, -117.777° Distance: 60.0666km
+Neighbor: CA, Los Angeles County, 34.196°, -118.262° Distance: 16.1210km
+Majority State: CA
+Time taken by function: 50059 microseconds
+Finding 8 nearest neighbors...
+Neighbor: CA, Mendocino County, 39.432°, -123.443° Distance: 3836.4624km
+Neighbor: CA, San Francisco County, 37.727°, -123.032° Distance: 3805.2787km
+Neighbor: AK, Aleutians East Borough, 55.245°, -161.997° Distance: 3782.9496km
+Neighbor: HI, Hawaii County, 19.598°, -155.502° Distance: 321.5449km
+Neighbor: HI, Kauai County, 22.012°, -159.706° Distance: 195.3828km
+Neighbor: HI, Maui County, 20.856°, -156.602° Distance: 150.6910km
+Neighbor: HI, Kalawao County, 21.219°, -156.974° Distance: 102.3313km
+Neighbor: HI, Honolulu County, 21.461°, -158.202° Distance: 28.4156km
+Majority State: HI
+Time taken by function: 50585 microseconds

@@ -10,4 +10,4 @@ Neighbor: MA, Middlesex County, 42.482°, -71.395° Distance: 28.0771km
 Neighbor: MA, Norfolk County, 42.172°, -71.181° Distance: 20.8224km
 Neighbor: MA, Suffolk County, 42.339°, -71.018° Distance: 7.0945km
 Majority State: MA
-Time taken by function: 43668 microseconds
+Time taken by function: 36909 microseconds
