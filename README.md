@@ -18,18 +18,18 @@ latitude
 longitude
 k
 ```
-All output will show in consle and write in txt file under output folder
+All output will show in consle and write in txt file under output folder</br>
 ## Features
 #### Load Reference Points
-loads reference points (including latitude, longitude, state, and county information) 
-into the KD-tree from a file or other source.
+loads reference points (including latitude, longitude, state, and county information) </br>
+into the KD-tree from a file or other source.</br>
 
 #### Query the nearest K reference points
-Allow the user to enter a coordinate (latitude and longitude) 
-and return the nearest K reference points, where K is a number between 1 and 10.
+Allow the user to enter a coordinate (latitude and longitude) </br>
+and return the nearest K reference points, where K is a number between 1 and 10.</br>
 
 #### Majority Vote for States and Counties
-For a given reference point, determine the state 
-and county by calculating the majority vote for the 5 nearest points.
-g++ -std=c++17 -o load load.cpp
-this project code requirte c++ version 17
+For a given reference point, determine the state </br>
+and county by calculating the majority vote for the 5 nearest points.</br>
+### `g++ -std=c++17 -o load load.cpp`</br>
+this project code requirte c++ version 17</br>
