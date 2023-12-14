@@ -2,6 +2,10 @@
 EC504 class project Nearest state/country finder
 
 ## Getting Started
+```
+git clone
+cd Nearest-state-country-finder
+```
 Run `make` to complie the code</br>
 Run `make run` will test the sample input for the code</br>
 or `./load xxxx.txt`</br>
